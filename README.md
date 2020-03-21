@@ -1,2 +1,2 @@
-# open-captcha
+# ocaptchas
 Open source simple CAPTCHA server featuring multiple verification schemes.
