@@ -1,0 +1,61 @@
+syntax = "proto3";
+package challenge;
+
+import "google/api/annotations.proto";
+
+message GetImagesRequest {
+    uint32 number = 1;
+}
+
+message GetImagesResponse {
+    string session_id = 1;
+    string prompt = 2;
+    repeated bytes images = 3;
+}
+
+message GetAlphanumericRequest {
+    uint32 length = 1;
+}
+
+message GetAlphanumericResponse {
+    string session_id = 1;
+    string prompt = 2;
+    bytes image = 3;
+}
+
+message GetQuestionsRequest {
+    uint32 number = 1;
+}
+
+message GetQuestionsResponse {
+    string session_id = 1;
+    repeated string questions = 2;
+}
+
+// Challenge service handles the challenge and answer for clients
+service Challenge {
+    // Get an image challenge
+    //
+    // Returns a list of images and a prompt that lets the client know which images we are asking for.
+    rpc GetImagesChallenge (GetImagesRequest) returns (GetImagesResponse) {
+        option (google.api.http) = {
+            get: "/challenge/images/{number}"
+        };
+    }
+    // Get an alphanumeric challenge
+    //
+    // Returns an image with alphanumeric characters to be found, and a prompt if applicable
+    rpc GetAlphanumericChallenge (GetAlphanumericRequest) returns (GetAlphanumericResponse) {
+        option (google.api.http) = {
+            get: "/challenge/alphanumeric/{length}"
+        };
+    }
+    // Get a questions list challenge
+    //
+    // Returns a list of questions that are to be answered by the client.
+    rpc GetQuestionsChallenge (GetQuestionsRequest) returns (GetQuestionsResponse) {
+        option (google.api.http) = {
+            get: "/challenge/questions/{number}"
+        };
+    }
+}
