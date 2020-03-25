@@ -2,14 +2,10 @@ package repo
 
 import "github.com/jinzhu/gorm"
 
-type session struct {
-	gorm.Model
-	uuid string
-	sessionType string
-}
-
 type SessionRepo interface {
-	CreateSession(uuid string, sessionType string) error
+	CreateSession(uuid string, sessionType SessionType) error
+	GetSession(uuid string) (*Session, error)
+	DeleteSession(uuid string) error
 }
 
 type sessionRepo struct {
@@ -17,7 +13,7 @@ type sessionRepo struct {
 }
 
 func NewSessionRepo(db *gorm.DB) (SessionRepo, error) {
-	err := db.AutoMigrate().Error
+	err := db.AutoMigrate(Session{}).Error
 	if err != nil {
 		return nil, err
 	}
@@ -26,20 +22,36 @@ func NewSessionRepo(db *gorm.DB) (SessionRepo, error) {
 	}, nil
 }
 
-func (r sessionRepo) CreateSession(uuid string, sessionType string) error {
+type Session struct {
+	gorm.Model
+	UUID string
+	SessionType SessionType
+	Answer string
+}
+
+type SessionType int
+
+var (
+	SessionType_Images SessionType = 0
+	SessionType_Alphanumeric SessionType = 1
+	SessionType_Questions SessionType = 2
+)
+
+
+func (r sessionRepo) CreateSession(uuid string, sessionType SessionType) error {
 	return r.db.Create(
-		session{
-		uuid: uuid,
-		sessionType: sessionType,
+		Session{
+		UUID: uuid,
+		SessionType: sessionType,
 		}).Error
 }
 
-func (r sessionRepo) GetSession(uuid string) (*session, error) {
-	retrievedSession := &session{}
+func (r sessionRepo) GetSession(uuid string) (*Session, error) {
+	retrievedSession := &Session{}
 	r.db.First(retrievedSession, "uuid = ?", uuid)
 	return retrievedSession, r.db.Error
 }
 
 func (r sessionRepo) DeleteSession(uuid string) error {
-	return r.db.Delete(&session{}, "uuid = ?", uuid).Error
+	return r.db.Delete(&Session{}, "uuid = ?", uuid).Error
 }
