@@ -31,26 +31,19 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = descriptor.ForMessage
 
+var (
+	filter_Challenge_GetImagesChallenge_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
 func request_Challenge_GetImagesChallenge_0(ctx context.Context, marshaler runtime.Marshaler, client ChallengeClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetImagesRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["number"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "number")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.Number, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "number", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Challenge_GetImagesChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetImagesChallenge(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -62,22 +55,8 @@ func local_request_Challenge_GetImagesChallenge_0(ctx context.Context, marshaler
 	var protoReq GetImagesRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["number"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "number")
-	}
-
-	protoReq.Number, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "number", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_Challenge_GetImagesChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetImagesChallenge(ctx, &protoReq)
@@ -85,26 +64,19 @@ func local_request_Challenge_GetImagesChallenge_0(ctx context.Context, marshaler
 
 }
 
+var (
+	filter_Challenge_GetAlphanumericChallenge_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
 func request_Challenge_GetAlphanumericChallenge_0(ctx context.Context, marshaler runtime.Marshaler, client ChallengeClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetAlphanumericRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["length"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "length")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.Length, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "length", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Challenge_GetAlphanumericChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetAlphanumericChallenge(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -116,22 +88,8 @@ func local_request_Challenge_GetAlphanumericChallenge_0(ctx context.Context, mar
 	var protoReq GetAlphanumericRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["length"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "length")
-	}
-
-	protoReq.Length, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "length", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_Challenge_GetAlphanumericChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetAlphanumericChallenge(ctx, &protoReq)
@@ -139,26 +97,19 @@ func local_request_Challenge_GetAlphanumericChallenge_0(ctx context.Context, mar
 
 }
 
+var (
+	filter_Challenge_GetQuestionsChallenge_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
 func request_Challenge_GetQuestionsChallenge_0(ctx context.Context, marshaler runtime.Marshaler, client ChallengeClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetQuestionsRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["number"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "number")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.Number, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "number", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Challenge_GetQuestionsChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetQuestionsChallenge(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -170,22 +121,8 @@ func local_request_Challenge_GetQuestionsChallenge_0(ctx context.Context, marsha
 	var protoReq GetQuestionsRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["number"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "number")
-	}
-
-	protoReq.Number, err = runtime.Uint32(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "number", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_Challenge_GetQuestionsChallenge_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetQuestionsChallenge(ctx, &protoReq)
@@ -363,11 +300,11 @@ func RegisterChallengeHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 }
 
 var (
-	pattern_Challenge_GetImagesChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"challenge", "images", "number"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Challenge_GetImagesChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"challenge", "images"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Challenge_GetAlphanumericChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"challenge", "alphanumeric", "length"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Challenge_GetAlphanumericChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"challenge", "alphanumeric"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Challenge_GetQuestionsChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"challenge", "questions", "number"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Challenge_GetQuestionsChallenge_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"challenge", "questions"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
