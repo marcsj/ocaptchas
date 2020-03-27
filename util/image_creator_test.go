@@ -21,3 +21,19 @@ func TestCreateImage(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestCreateTextImageRandom(t *testing.T) {
+	img, err := CreateTextImage(RandStringRunes(16), 16)
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := os.Create("test.png")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	err = png.Encode(f, img)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
