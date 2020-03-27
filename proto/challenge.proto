@@ -34,6 +34,13 @@ message GetQuestionsResponse {
     repeated string questions = 2;
 }
 
+message SessionSolution {
+    string uuid = 1;
+    string answer = 2;
+}
+
+message SolutionResponse {}
+
 // Challenge service handles the challenge and answer for clients
 service Challenge {
     // Get an image challenge
@@ -58,6 +65,15 @@ service Challenge {
     rpc GetQuestionsChallenge (GetQuestionsRequest) returns (GetQuestionsResponse) {
         option (google.api.http) = {
             get: "/challenge/questions"
+        };
+    }
+    // Solve the session
+    //
+    // Returns a success response on pass, or error on failure.
+    rpc SolveSession (SessionSolution) returns (SolutionResponse) {
+        option (google.api.http) = {
+            post: "/solve"
+            body: "*"
         };
     }
 }

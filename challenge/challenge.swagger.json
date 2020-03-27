@@ -122,6 +122,40 @@
           "Challenge"
         ]
       }
+    },
+    "/solve": {
+      "post": {
+        "summary": "Solve the session",
+        "description": "Returns a success response on pass, or error on failure.",
+        "operationId": "SolveSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/challengeSolutionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/challengeSessionSolution"
+            }
+          }
+        ],
+        "tags": [
+          "Challenge"
+        ]
+      }
     }
   },
   "definitions": {
@@ -171,6 +205,20 @@
           }
         }
       }
+    },
+    "challengeSessionSolution": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      }
+    },
+    "challengeSolutionResponse": {
+      "type": "object"
     },
     "protobufAny": {
       "type": "object",
