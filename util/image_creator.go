@@ -51,7 +51,10 @@ func drawCharacter(
 	rotation float64,
 	position int,
 	ctx *gg.Context) {
-	ctx.SetColor(textColor)
+	ctx.SetRGB(
+		float64(rand.Intn(255)),
+		float64(rand.Intn(255)),
+		float64(rand.Intn(255)))
 	ctx.RotateAbout(
 		gg.Degrees(rotation),
 		float64(position*textSize+(textSize/2)),
