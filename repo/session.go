@@ -3,7 +3,7 @@ package repo
 import "github.com/jinzhu/gorm"
 
 type SessionRepo interface {
-	CreateSession(uuid string, sessionType SessionType) error
+	CreateSession(uuid string, sessionType SessionType, answer string) error
 	GetSession(uuid string) (*Session, error)
 	DeleteSession(uuid string) error
 }
@@ -38,11 +38,13 @@ var (
 )
 
 
-func (r sessionRepo) CreateSession(uuid string, sessionType SessionType) error {
+func (r sessionRepo) CreateSession(
+	uuid string, sessionType SessionType, answer string) error {
 	return r.db.Create(
 		Session{
 		UUID: uuid,
 		SessionType: sessionType,
+		Answer: answer,
 		}).Error
 }
 
