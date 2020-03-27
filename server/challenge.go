@@ -3,10 +3,11 @@ package server
 import (
 	"context"
 	"github.com/marcsj/ocaptchas/challenge"
+	"github.com/marcsj/ocaptchas/controller"
 )
 
 type challengeServer struct {
-
+	controller controller.ChallengeController
 }
 
 func NewChallengeServer() challenge.ChallengeServer {
@@ -20,7 +21,12 @@ func (s challengeServer) GetImagesChallenge(
 
 func (s challengeServer) GetAlphanumericChallenge(
 	ctx context.Context, req *challenge.GetAlphanumericRequest) (*challenge.GetAlphanumericResponse, error) {
-	return nil, nil
+	img, prompt, err := s.controller.GetAlphanumericChallenge(int(req.GetLength()), int(req.GetSize()))
+	if err != nil {
+		return nil, err
+	}
+	return &challenge.GetAlphanumericResponse{
+		Image: img, Prompt: prompt}, nil
 }
 
 func (s challengeServer) GetQuestionsChallenge(
