@@ -33,6 +33,9 @@ func CreateTextImage(text string, textSize int) (image.Image, error) {
 		ctx.Push()
 		drawCircles(ctx, i, textSize)
 		ctx.Pop()
+		ctx.Push()
+		drawLines(ctx, i, textSize)
+		ctx.Pop()
 	}
 	return ctx.Image(), nil
 }
@@ -70,7 +73,7 @@ func drawCircles(ctx *gg.Context, i int, textSize int) {
 		float64(rand.Intn(255)),
 		float64(rand.Intn(255)),
 		float64(rand.Intn(255)),
-		float64(rand.Intn(200)),
+		float64(rand.Intn(180)),
 	)
 	ctx.DrawCircle(
 		float64(i),
@@ -78,6 +81,32 @@ func drawCircles(ctx *gg.Context, i int, textSize int) {
 		float64(rand.Intn(textSize-(textSize/4))))
 	ctx.Fill()
 }
+
+func drawLines(ctx *gg.Context, i int, textSize int) {
+	ctx.SetRGBA(
+		float64(rand.Intn(255)),
+		float64(rand.Intn(255)),
+		float64(rand.Intn(255)),
+		float64(rand.Intn(255)),
+	)
+	x1 := i-5
+	if x1 < 0 {
+		x1 = 0
+	}
+	x2 := rand.Intn(i+5)
+	if x2 > ctx.Width() {
+		x2 = ctx.Width()
+	}
+	ctx.SetLineWidth(float64(rand.Intn(6)))
+	ctx.DrawLine(
+		float64(x1),
+		float64(rand.Intn(ctx.Height())),
+		float64(x2),
+		float64(rand.Intn(ctx.Height())),
+	)
+	ctx.Stroke()
+}
+
 
 func createAndFill(textSize int, length int) *gg.Context {
 	ctx := gg.NewContext((textSize*length)+(textSize/4),textSize+(textSize/2))
