@@ -20,6 +20,9 @@ var (
 		"database_file", "stored.db", "location for database file")
 	grpcPort = flag.String(
 		"grpc_port", "50051", "port for grpc connections")
+	apiKey = flag.String(
+		"api_key", "", "key for usage of admin api",
+		)
 )
 func main() {
 	errChannel := make(chan error)
@@ -34,12 +37,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = repo.NewChallengeQuestionsRepo(db)
+	questionsRepo, err := repo.NewChallengeQuestionsRepo(db)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	challengeController := controller.NewChallengeController(sessionRepo)
+	challengeController := controller.NewChallengeController(sessionRepo, questionsRepo)
 
 	challengeServer := server.NewChallengeServer(challengeController)
 
