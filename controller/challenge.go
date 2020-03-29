@@ -2,6 +2,7 @@ package controller
 
 import (
 	"bytes"
+	"errors"
 	"github.com/google/uuid"
 	"github.com/marcsj/ocaptchas/repo"
 	"github.com/marcsj/ocaptchas/util"
@@ -74,6 +75,17 @@ func (c challengeController) GetQuestionsChallenge(
 		return "", nil, err
 	}
 	return sessionID, questions, nil
+}
+
+func (c challengeController) SolveChallenge(sessionID string, answer []string) error {
+	session, err := c.sessionRepo.GetSession(sessionID)
+	if err != nil {
+		return err
+	}
+	if session.Answer != strings.ToLower(strings.Join(answer, ",")) {
+		return errors.New("answer incorrect")
+	}
+	return nil
 }
 
 func getUUID() string {
