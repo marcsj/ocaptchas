@@ -10,8 +10,10 @@ type challengeServer struct {
 	controller controller.ChallengeController
 }
 
-func NewChallengeServer() challenge.ChallengeServer {
-	return challengeServer{}
+func NewChallengeServer(controller controller.ChallengeController) challenge.ChallengeServer {
+	return &challengeServer{
+		controller: controller,
+	}
 }
 
 func (s challengeServer) GetImagesChallenge(
@@ -31,5 +33,10 @@ func (s challengeServer) GetAlphanumericChallenge(
 
 func (s challengeServer) GetQuestionsChallenge(
 	ctx context.Context, req *challenge.GetQuestionsRequest) (*challenge.GetQuestionsResponse, error) {
+	return nil, nil
+}
+
+func (s challengeServer) SolveSession(
+	ctx context.Context, req *challenge.SessionSolution) (*challenge.SolutionResponse, error) {
 	return nil, nil
 }
