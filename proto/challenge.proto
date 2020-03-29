@@ -36,7 +36,7 @@ message GetQuestionsResponse {
 
 message SessionSolution {
     string uuid = 1;
-    string answer = 2;
+    repeated string answer = 2;
 }
 
 message SolutionResponse {}

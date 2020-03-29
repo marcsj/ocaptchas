@@ -213,7 +213,10 @@
           "type": "string"
         },
         "answer": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
