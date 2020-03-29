@@ -4,12 +4,16 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/marcsj/ocaptchas/repo"
+	"github.com/namsral/flag"
 	"log"
 )
 
+var (
+	databaseFile = flag.String(
+		"database_file", "stored.db", "location for database file")
+)
 func main() {
-	//TODO: change where this database is located by an arg
-	db, err := gorm.Open("sqlite3", "stored.db")
+	db, err := gorm.Open("sqlite3", *databaseFile)
 	if err != nil {
 		log.Fatal(err)
 	}
