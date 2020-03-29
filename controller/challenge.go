@@ -13,6 +13,7 @@ import (
 type ChallengeController interface {
 	GetAlphanumericChallenge(length int, size int) (string, []byte, string, error)
 	GetQuestionsChallenge(number int, label string) (string, []string, error)
+	SolveChallenge(sessionID string, answer []string) error
 }
 
 type challengeController struct {

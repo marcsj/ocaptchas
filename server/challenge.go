@@ -49,5 +49,5 @@ func (s challengeServer) GetQuestionsChallenge(
 
 func (s challengeServer) SolveSession(
 	ctx context.Context, req *challenge.SessionSolution) (*challenge.SolutionResponse, error) {
-	return nil, nil
+	return nil, s.controller.SolveChallenge(req.GetUuid(), req.GetAnswer())
 }
