@@ -126,7 +126,7 @@
     "/solve": {
       "post": {
         "summary": "Solve the session",
-        "description": "Returns a success response on pass, or error on failure.",
+        "description": "Returns an error on failure.",
         "operationId": "SolveSession",
         "responses": {
           "200": {

@@ -467,7 +467,7 @@ type ChallengeClient interface {
 	GetQuestionsChallenge(ctx context.Context, in *GetQuestionsRequest, opts ...grpc.CallOption) (*GetQuestionsResponse, error)
 	// Solve the session
 	//
-	// Returns a success response on pass, or error on failure.
+	// Returns an error on failure.
 	SolveSession(ctx context.Context, in *SessionSolution, opts ...grpc.CallOption) (*SolutionResponse, error)
 }
 
@@ -531,7 +531,7 @@ type ChallengeServer interface {
 	GetQuestionsChallenge(context.Context, *GetQuestionsRequest) (*GetQuestionsResponse, error)
 	// Solve the session
 	//
-	// Returns a success response on pass, or error on failure.
+	// Returns an error on failure.
 	SolveSession(context.Context, *SessionSolution) (*SolutionResponse, error)
 }
 

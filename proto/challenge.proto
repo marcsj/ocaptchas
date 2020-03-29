@@ -69,7 +69,7 @@ service Challenge {
     }
     // Solve the session
     //
-    // Returns a success response on pass, or error on failure.
+    // Returns an error on failure.
     rpc SolveSession (SessionSolution) returns (SolutionResponse) {
         option (google.api.http) = {
             post: "/solve"
