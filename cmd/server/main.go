@@ -22,17 +22,12 @@ var (
 	grpcPort = flag.String(
 		"grpc_port", "50051", "port for grpc connections")
 	apiKey = flag.String(
-		"api_key", "", "key for usage of admin api")
+		"api_key", uuid.New().String(), "key for usage of admin api")
 )
 func main() {
 	flag.Parse()
-	
-	errChannel := make(chan error)
 
-	if *apiKey == "" {
-		*apiKey = uuid.New().String()
-		log.Println("api key:", *apiKey)
-	}
+	errChannel := make(chan error)
 
 	db, err := gorm.Open("sqlite3", *databaseFile)
 	if err != nil {
@@ -68,6 +63,7 @@ func main() {
 	}()
 
 	log.Println("started ocaptchas server")
+	log.Println("api key:", *apiKey)
 
 	for {
 		select {
