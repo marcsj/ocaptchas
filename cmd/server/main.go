@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/marcsj/ocaptchas/challenge"
@@ -24,7 +25,14 @@ var (
 		"api_key", "", "key for usage of admin api")
 )
 func main() {
+	flag.Parse()
+	
 	errChannel := make(chan error)
+
+	if *apiKey == "" {
+		*apiKey = uuid.New().String()
+		log.Println("api key:", *apiKey)
+	}
 
 	db, err := gorm.Open("sqlite3", *databaseFile)
 	if err != nil {
