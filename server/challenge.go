@@ -33,7 +33,13 @@ func (s challengeServer) GetAlphanumericChallenge(
 
 func (s challengeServer) GetQuestionsChallenge(
 	ctx context.Context, req *challenge.GetQuestionsRequest) (*challenge.GetQuestionsResponse, error) {
-	return nil, nil
+	questions, err := s.controller.GetQuestionsChallenge(int(req.GetNumber()), req.GetLabel())
+	if err != nil {
+		return nil, err
+	}
+	return &challenge.GetQuestionsResponse{
+		SessionId:
+	}, nil
 }
 
 func (s challengeServer) SolveSession(
