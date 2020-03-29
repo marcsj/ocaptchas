@@ -5,7 +5,7 @@ import (
 )
 
 type ChallengeQuestionsRepo interface {
-	GetChallengeQuestions(label string, number int) ([]*QuestionChallenge, error)
+	GetChallengeQuestions(number int, label string) ([]*QuestionChallenge, error)
 	CreateChallenge(label string, question string, answer string) (*QuestionChallenge, error)
 	DeleteChallenge(id uint) error
 }
@@ -32,9 +32,12 @@ type QuestionChallenge struct {
 }
 
 func (r challengeQuestionsRepo) GetChallengeQuestions(
-	label string, number int) ([]*QuestionChallenge, error) {
+	number int, label string) ([]*QuestionChallenge, error) {
 	challenges := make([]*QuestionChallenge, number)
-	err := r.db.Find(challenges, "label = ?", label).Order(gorm.Expr("random()")).Error
+	err := r.db.
+		Find(challenges, "label = ?", label).
+		Order(gorm.Expr("random()")).
+		Error
 	if err != nil {
 		return nil, err
 	}
