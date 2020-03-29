@@ -23,22 +23,27 @@ func (s challengeServer) GetImagesChallenge(
 
 func (s challengeServer) GetAlphanumericChallenge(
 	ctx context.Context, req *challenge.GetAlphanumericRequest) (*challenge.GetAlphanumericResponse, error) {
-	img, prompt, err := s.controller.GetAlphanumericChallenge(int(req.GetLength()), int(req.GetSize()))
+	session, img, prompt, err := s.controller.
+		GetAlphanumericChallenge(int(req.GetLength()), int(req.GetSize()))
 	if err != nil {
 		return nil, err
 	}
 	return &challenge.GetAlphanumericResponse{
-		Image: img, Prompt: prompt}, nil
+		SessionId: session,
+		Image: img,
+		Prompt: prompt,
+	}, nil
 }
 
 func (s challengeServer) GetQuestionsChallenge(
 	ctx context.Context, req *challenge.GetQuestionsRequest) (*challenge.GetQuestionsResponse, error) {
-	questions, err := s.controller.GetQuestionsChallenge(int(req.GetNumber()), req.GetLabel())
+	session, questions, err := s.controller.GetQuestionsChallenge(int(req.GetNumber()), req.GetLabel())
 	if err != nil {
 		return nil, err
 	}
 	return &challenge.GetQuestionsResponse{
-		SessionId:
+		SessionId: session,
+		Questions: questions,
 	}, nil
 }
 
