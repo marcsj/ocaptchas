@@ -5,6 +5,7 @@ import "google/api/annotations.proto";
 
 message GetImagesRequest {
     uint32 number = 1;
+    string label = 2;
 }
 
 message GetImagesResponse {
