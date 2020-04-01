@@ -1,6 +1,7 @@
 package util
 
 import (
+	"github.com/google/uuid"
 	"image"
 	"os"
 )
@@ -26,4 +27,8 @@ func ReadImage(path string) (image.Image, error) {
 		return nil, err
 	}
 	return imageData, nil
+}
+
+func GetUUID() string {
+	return uuid.New().String()
 }
