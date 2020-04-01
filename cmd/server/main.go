@@ -24,6 +24,7 @@ var (
 	apiKey = flag.String(
 		"api_key", uuid.New().String(), "key for usage of admin api")
 )
+
 func main() {
 	flag.Parse()
 
@@ -57,7 +58,7 @@ func main() {
 	challenge.RegisterChallengeServer(grpcServer, challengeServer)
 
 	// running gRPC server
-	go func () {
+	go func() {
 		grpclog.Infof("Starting gRPC server. tcp port: %v", *grpcPort)
 		errChannel <- grpcServer.Serve(lis)
 	}()

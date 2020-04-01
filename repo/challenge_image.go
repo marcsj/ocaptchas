@@ -24,7 +24,7 @@ type ChallengeImagesRepo interface {
 }
 
 type challengeImagesRepo struct {
-	db *gorm.DB
+	db     *gorm.DB
 	folder string
 }
 
@@ -34,7 +34,7 @@ func NewChallengeImagesRepo(db *gorm.DB, imageFolder string) (ChallengeImagesRep
 		return nil, err
 	}
 	return &challengeImagesRepo{
-		db: db,
+		db:     db,
 		folder: imageFolder,
 	}, nil
 }
@@ -42,7 +42,7 @@ func NewChallengeImagesRepo(db *gorm.DB, imageFolder string) (ChallengeImagesRep
 type ImageChallenge struct {
 	gorm.Model
 	Label string
-	Path string
+	Path  string
 }
 
 func (r challengeImagesRepo) GetChallengeImages(
@@ -76,7 +76,8 @@ func (r challengeImagesRepo) getChallenges(
 	}
 	challenges = append(correct, incorrect...)
 	rand.Shuffle(len(challenges), func(i, j int) {
-		challenges[i], challenges[j] = challenges[j], challenges[i]})
+		challenges[i], challenges[j] = challenges[j], challenges[i]
+	})
 	for i, ch := range challenges {
 		util.ContainsUInt(correctIDs, ch.ID)
 		answers = append(answers, strconv.Itoa(i))
@@ -88,7 +89,7 @@ func (r challengeImagesRepo) getChallenges(
 func (r challengeImagesRepo) getLabelChallenges(
 	number int, label string) (
 	correct []*ImageChallenge, incorrect []*ImageChallenge, err error) {
-	numberCorrect := rand.Intn(number-2)
+	numberCorrect := rand.Intn(number - 2)
 	if numberCorrect < 0 {
 		numberCorrect = 1
 	}
@@ -185,7 +186,7 @@ func (r challengeImagesRepo) NewImageEntry(label string, path string) error {
 	return r.db.Create(
 		&ImageChallenge{
 			Label: label,
-			Path: path,
+			Path:  path,
 		}).
 		Error
 }

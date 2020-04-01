@@ -30,8 +30,8 @@ func (s challengeServer) GetAlphanumericChallenge(
 	}
 	return &challenge.GetAlphanumericResponse{
 		SessionId: session,
-		Image: img,
-		Prompt: prompt,
+		Image:     img,
+		Prompt:    prompt,
 	}, nil
 }
 

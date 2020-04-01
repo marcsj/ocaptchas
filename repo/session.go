@@ -24,27 +24,26 @@ func NewSessionRepo(db *gorm.DB) (SessionRepo, error) {
 
 type Session struct {
 	gorm.Model
-	UUID string
+	UUID        string
 	SessionType SessionType
-	Answer string
+	Answer      string
 }
 
 type SessionType int
 
 var (
-	SessionType_Images SessionType = 0
+	SessionType_Images       SessionType = 0
 	SessionType_Alphanumeric SessionType = 1
-	SessionType_Questions SessionType = 2
+	SessionType_Questions    SessionType = 2
 )
-
 
 func (r sessionRepo) CreateSession(
 	uuid string, sessionType SessionType, answer string) error {
 	return r.db.Create(
 		Session{
-		UUID: uuid,
-		SessionType: sessionType,
-		Answer: answer,
+			UUID:        uuid,
+			SessionType: sessionType,
+			Answer:      answer,
 		}).Error
 }
 

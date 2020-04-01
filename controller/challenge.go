@@ -18,15 +18,15 @@ type ChallengeController interface {
 }
 
 type challengeController struct {
-	sessionRepo repo.SessionRepo
+	sessionRepo   repo.SessionRepo
 	questionsRepo repo.ChallengeQuestionsRepo
-	imagesRepo repo.ChallengeImagesRepo
+	imagesRepo    repo.ChallengeImagesRepo
 }
 
 func NewChallengeController(
 	sessionRepo repo.SessionRepo, questionsRepo repo.ChallengeQuestionsRepo) ChallengeController {
 	return &challengeController{
-		sessionRepo: sessionRepo,
+		sessionRepo:   sessionRepo,
 		questionsRepo: questionsRepo,
 	}
 }

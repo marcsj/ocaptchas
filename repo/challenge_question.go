@@ -26,9 +26,9 @@ func NewChallengeQuestionsRepo(db *gorm.DB) (ChallengeQuestionsRepo, error) {
 
 type QuestionChallenge struct {
 	gorm.Model
-	Label string
+	Label    string
 	Question string
-	Answer string
+	Answer   string
 }
 
 func (r challengeQuestionsRepo) GetChallengeQuestions(
@@ -49,9 +49,9 @@ func (r challengeQuestionsRepo) CreateChallenge(
 	newChallenge := &QuestionChallenge{}
 	db := r.db.Create(
 		&QuestionChallenge{
-			Label: label,
+			Label:    label,
 			Question: question,
-			Answer: answer,
+			Answer:   answer,
 		})
 	if db.Error != nil {
 		return nil, db.Error

@@ -89,11 +89,11 @@ func drawLines(ctx *gg.Context, i int, textSize int) {
 		float64(rand.Intn(255)),
 		float64(rand.Intn(255)),
 	)
-	x1 := i-5
+	x1 := i - 5
 	if x1 < 0 {
 		x1 = 0
 	}
-	x2 := rand.Intn(i+5)
+	x2 := rand.Intn(i + 5)
 	if x2 > ctx.Width() {
 		x2 = ctx.Width()
 	}
@@ -107,9 +107,8 @@ func drawLines(ctx *gg.Context, i int, textSize int) {
 	ctx.Stroke()
 }
 
-
 func createAndFill(textSize int, length int) *gg.Context {
-	ctx := gg.NewContext((textSize*length)+(textSize/4),textSize+(textSize/2))
+	ctx := gg.NewContext((textSize*length)+(textSize/4), textSize+(textSize/2))
 	ctx.DrawRectangle(0, 0, float64(ctx.Width()), float64(ctx.Height()))
 	ctx.SetRGB(0, 0, 0)
 	ctx.Stroke()
