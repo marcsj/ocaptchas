@@ -20,27 +20,29 @@ func ContainsUInt(a []uint, x uint) bool {
 	return false
 }
 
-func ReadImage(path string) (*challenge.ImageData, error) {
-	imageType := strings.SplitAfter(path, ".")
+func ReadImage(path string) (img image.Image, imageType string, err error) {
+	imageTypes := strings.SplitAfter(path, ".")
+	imageType = imageTypes[len(imageType)-1]
 	imageFile, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		return
 	}
 	defer imageFile.Close()
 
-	img, _, err := image.Decode(imageFile)
-	if err != nil {
-		return nil, err
-	}
+	img, _, err = image.Decode(imageFile)
+	return
+}
+
+func ConvertImage(img image.Image, imageType string) (*challenge.ImageData, error) {
 	resizedImg := resize.Resize(256, 256, img, resize.Lanczos3)
 
 	buffer := new(bytes.Buffer)
-	err = jpeg.Encode(buffer, resizedImg, nil)
+	err := jpeg.Encode(buffer, resizedImg, nil)
 	if err != nil {
 		return nil, err
 	}
 	return &challenge.ImageData{
-		Type: imageType[len(imageType)-1],
+		Type: imageType,
 		Data: buffer.Bytes(),
 	}, nil
 }

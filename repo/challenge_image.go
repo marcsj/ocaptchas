@@ -3,8 +3,8 @@ package repo
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"github.com/marcsj/ocaptchas/challenge"
 	"github.com/marcsj/ocaptchas/util"
-	"image"
 	"log"
 	"math/rand"
 	"os"
@@ -19,7 +19,7 @@ func init() {
 
 type ChallengeImagesRepo interface {
 	GetChallengeImages(
-		number int, label string) (images []image.Image, answer string, err error)
+		number int, label string) (images []*challenge.ImageData, answer string, err error)
 	ScanForChallenges() error
 }
 
@@ -46,18 +46,22 @@ type ImageChallenge struct {
 }
 
 func (r challengeImagesRepo) GetChallengeImages(
-	number int, label string) (images []image.Image, answer string, err error) {
+	number int, label string) (images []*challenge.ImageData, answer string, err error) {
 	challenges, answer, err := r.getChallenges(number, label)
 	if err != nil {
 		return
 	}
-	images = make([]image.Image, 0)
+	images = make([]*challenge.ImageData, 0)
 	for _, challenge := range challenges {
-		img, err := util.ReadImage(challenge.Path)
+		img, imageType, err := util.ReadImage(challenge.Path)
 		if err != nil {
 			return
 		}
-		images = append(images, img)
+		imgData, err := util.ConvertImage(img, imageType)
+		if err != nil {
+			return
+		}
+		images = append(images, imgData)
 	}
 	return
 }
@@ -171,7 +175,7 @@ func (r challengeImagesRepo) getImages(label string) ([]string, error) {
 	for _, file := range files {
 		if !file.IsDir() {
 			filePath := fmt.Sprintf("%s/%s", path, file.Name())
-			_, err := util.ReadImage(filePath)
+			_, _, err := util.ReadImage(filePath)
 			if err != nil {
 				log.Println(err)
 				continue
