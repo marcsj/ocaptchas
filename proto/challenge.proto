@@ -11,7 +11,7 @@ message GetImagesRequest {
 message GetImagesResponse {
     string session_id = 1;
     string prompt = 2;
-    repeated bytes images = 3;
+    repeated ImageData images = 3;
 }
 
 message GetAlphanumericRequest {
@@ -22,7 +22,7 @@ message GetAlphanumericRequest {
 message GetAlphanumericResponse {
     string session_id = 1;
     string prompt = 2;
-    bytes image = 3;
+    ImageData image = 3;
 }
 
 message GetQuestionsRequest {
@@ -38,6 +38,11 @@ message GetQuestionsResponse {
 message SessionSolution {
     string uuid = 1;
     repeated string answer = 2;
+}
+
+message ImageData {
+    string type = 1;
+    bytes data = 2;
 }
 
 message SolutionResponse {}
