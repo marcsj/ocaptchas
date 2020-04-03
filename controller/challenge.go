@@ -5,13 +5,12 @@ import (
 	"errors"
 	"github.com/marcsj/ocaptchas/repo"
 	"github.com/marcsj/ocaptchas/util"
-	"image"
 	"image/jpeg"
 	"strings"
 )
 
 type ChallengeController interface {
-	GetImagesChallenge(number int, label string) (string, []image.Image, string, error)
+	GetImagesChallenge(number int, label string) (string, [][]byte, string, error)
 	GetAlphanumericChallenge(length int, size int) (string, []byte, string, error)
 	GetQuestionsChallenge(number int, label string) (string, []string, error)
 	SolveChallenge(sessionID string, answer []string) error
@@ -32,7 +31,7 @@ func NewChallengeController(
 }
 
 func (c challengeController) GetImagesChallenge(number int, label string) (
-	session string, images []image.Image, prompt string, err error) {
+	session string, images [][]byte, prompt string, err error) {
 	images, answer, err := c.imagesRepo.GetChallengeImages(number, label)
 	if err != nil {
 		return
