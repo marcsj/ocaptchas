@@ -3,7 +3,6 @@ package repo
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"github.com/marcsj/ocaptchas/challenge"
 	"github.com/marcsj/ocaptchas/util"
 	"log"
 	"math/rand"
@@ -19,7 +18,7 @@ func init() {
 
 type ChallengeImagesRepo interface {
 	GetChallengeImages(
-		number int, label string) (images []*challenge.ImageData, answer string, err error)
+		number int, label string) (images [][]byte, answer string, err error)
 	ScanForChallenges() error
 }
 
@@ -46,18 +45,18 @@ type ImageChallenge struct {
 }
 
 func (r challengeImagesRepo) GetChallengeImages(
-	number int, label string) (images []*challenge.ImageData, answer string, err error) {
+	number int, label string) (images [][]byte, answer string, err error) {
 	challenges, answer, err := r.getChallenges(number, label)
 	if err != nil {
 		return
 	}
-	images = make([]*challenge.ImageData, 0)
+	images = make([][]byte, 0)
 	for _, challenge := range challenges {
-		img, imageType, err := util.ReadImage(challenge.Path)
+		img, _, err := util.ReadImage(challenge.Path)
 		if err != nil {
 			return
 		}
-		imgData, err := util.ConvertImage(img, imageType)
+		imgData, err := util.ConvertImage(img)
 		if err != nil {
 			return
 		}
