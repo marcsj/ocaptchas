@@ -175,7 +175,8 @@
           "type": "string"
         },
         "image": {
-          "$ref": "#/definitions/challengeImageData"
+          "type": "string",
+          "format": "byte"
         }
       }
     },
@@ -191,7 +192,8 @@
         "images": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/challengeImageData"
+            "type": "string",
+            "format": "byte"
           }
         }
       }
@@ -207,18 +209,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "challengeImageData": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "data": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },

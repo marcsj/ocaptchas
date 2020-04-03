@@ -18,7 +18,15 @@ func NewChallengeServer(controller controller.ChallengeController) challenge.Cha
 
 func (s challengeServer) GetImagesChallenge(
 	ctx context.Context, req *challenge.GetImagesRequest) (*challenge.GetImagesResponse, error) {
-	return nil, nil
+	sessionID, images, prompt, err := s.controller.GetImagesChallenge(int(req.GetNumber()), req.GetLabel())
+	if err != nil {
+		return nil, err
+	}
+	return &challenge.GetImagesResponse{
+		SessionId: sessionID,
+		Images: images,
+		Prompt: prompt,
+	}, nil
 }
 
 func (s challengeServer) GetAlphanumericChallenge(
