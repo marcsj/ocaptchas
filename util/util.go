@@ -3,7 +3,6 @@ package util
 import (
 	"bytes"
 	"github.com/google/uuid"
-	"github.com/marcsj/ocaptchas/challenge"
 	"github.com/nfnt/resize"
 	"image"
 	"image/jpeg"
@@ -33,7 +32,7 @@ func ReadImage(path string) (img image.Image, imageType string, err error) {
 	return
 }
 
-func ConvertImage(img image.Image, imageType string) (*challenge.ImageData, error) {
+func ConvertImage(img image.Image) ([]byte, error) {
 	resizedImg := resize.Resize(256, 256, img, resize.Lanczos3)
 
 	buffer := new(bytes.Buffer)
@@ -41,10 +40,7 @@ func ConvertImage(img image.Image, imageType string) (*challenge.ImageData, erro
 	if err != nil {
 		return nil, err
 	}
-	return &challenge.ImageData{
-		Type: imageType,
-		Data: buffer.Bytes(),
-	}, nil
+	return buffer.Bytes(), nil
 }
 
 func GetUUID() string {
