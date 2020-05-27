@@ -2,6 +2,7 @@ package util
 
 import (
 	"image/png"
+	"log"
 	"os"
 	"testing"
 )
@@ -23,7 +24,12 @@ func TestCreateImage(t *testing.T) {
 }
 
 func TestCreateTextImageRandom(t *testing.T) {
-	img, err := CreateTextImage(RandStringRunes(16), 16)
+	if testing.Short() {
+		t.Skip()
+	}
+	txt := RandStringRunes(10)
+	log.Println(txt)
+	img, err := CreateTextImage(txt, 64)
 	if err != nil {
 		t.Fatal(err)
 	}

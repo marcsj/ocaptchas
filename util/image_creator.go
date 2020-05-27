@@ -54,10 +54,11 @@ func drawCharacter(
 	textSize int,
 	position int,
 	ctx *gg.Context) {
-	ctx.SetRGB(
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)))
+	ctx.SetRGB255(
+		rand.Intn(255),
+		rand.Intn(255),
+		rand.Intn(255),
+		)
 	ctx.RotateAbout(
 		gg.Degrees(float64(rand.Intn(360))),
 		float64(position*textSize+(textSize/2)),
@@ -69,11 +70,11 @@ func drawCharacter(
 }
 
 func drawCircles(ctx *gg.Context, i int, textSize int) {
-	ctx.SetRGBA(
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
-		float64(rand.Intn(180)),
+	ctx.SetRGBA255(
+		rand.Intn(255),
+		rand.Intn(255),
+		rand.Intn(255),
+		rand.Intn(180),
 	)
 	ctx.DrawCircle(
 		float64(i),
@@ -83,11 +84,11 @@ func drawCircles(ctx *gg.Context, i int, textSize int) {
 }
 
 func drawLines(ctx *gg.Context, i int, textSize int) {
-	ctx.SetRGBA(
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
-		float64(rand.Intn(255)),
+	ctx.SetRGBA255(
+		rand.Intn(255),
+		rand.Intn(255),
+		rand.Intn(255),
+		rand.Intn(255),
 	)
 	x1 := i - 5
 	if x1 < 0 {
